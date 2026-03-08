@@ -55,7 +55,7 @@ To address the classical collapse, we implemented a **Variational Quantum Classi
 ---
 
 ## 🛠️ Tech Stack
-- **Languages:** Python (Java/C for DSA foundations)
+- **Languages:** Python 
 - **AI Frameworks:** TensorFlow, Keras, Scikit-learn
 - **Quantum:** Qiskit, Qiskit-Machine-Learning, Qiskit-Aer
 - **Tools:** OpenCV, PCA, Grad-CAM
