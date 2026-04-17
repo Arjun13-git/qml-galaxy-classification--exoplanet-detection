@@ -1,79 +1,106 @@
 import os
-import cv2
+import pandas as pd
 import numpy as np
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
-from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
-from build_saan import build_saan_model # Importing your custom architecture!
+from sklearn.preprocessing import LabelEncoder
+from build_saan import build_saan_model
 
-# --- 1. Load and Prepare Data ---
-DATA_DIR = '../data/processed_images'
-CLASSES = ['Elliptical', 'Spiral', 'Irregular']
+print("🔍 Checking Hardware...")
+# --- THE GPU KILL SWITCH ---
+physical_devices = tf.config.list_physical_devices('GPU')
+if len(physical_devices) == 0:
+    raise RuntimeError("❌ NO GPU DETECTED! TensorFlow is trying to use the CPU. Aborting.")
+else:
+    print(f"✅ GPU Detected: {physical_devices[0]}")
+    # This prevents TensorFlow from hoarding all 4GB of VRAM instantly
+    tf.config.experimental.set_memory_growth(physical_devices[0], True)
+# ---------------------------
 
-X = []
-y = []
+print("🚀 Initializing GPU and Mixed Precision...")
+tf.keras.mixed_precision.set_global_policy('mixed_float16')
 
-print("Loading 6,000 images into memory...")
-for label, class_name in enumerate(CLASSES):
-    class_dir = os.path.join(DATA_DIR, class_name)
-    for img_name in os.listdir(class_dir):
-        img_path = os.path.join(class_dir, img_name)
-        img = cv2.imread(img_path)
-        if img is not None:
-            X.append(img)
-            y.append(label)
+# --- 1. Load the GPS Map (CSV) ---
+CSV_PATH = '../master_labels_60k.csv'  # <--- Updated to the new 60k file
 
-X = np.array(X, dtype='float32')
-y = np.array(y)
+# ⚠️ PASTE THE EXACT PATH FROM YOUR WINDOWS EXPLORER HERE ⚠️
+# Keep the 'r' before the quotes so Windows doesn't break the slashes
+EXTERNAL_IMAGES_DIR = r"C:\galaxy_datasets\images_training_rev1"
 
-# Z-Score / Mathematical Normalization (Crucial for Neural Networks)
-print("Normalizing pixel values (0 to 1)...")
-X = X / 255.0 
+df = pd.read_csv(CSV_PATH)
+df['filepath'] = EXTERNAL_IMAGES_DIR + '/' + df['filename']
 
-# Split into 80% Training, 20% Validation
-X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
-print(f"Training shape: {X_train.shape} | Validation shape: {X_val.shape}")
+print("🔍 Verifying file paths...")
+df = df[df['filepath'].apply(os.path.exists)]
+print(f"Valid images ready for training: {len(df)}")
 
-# --- 2. Initialize the Custom SAAN Model ---
-print("\nInitializing SAAN Architecture...")
-model = build_saan_model(input_shape=(64, 64, 3), num_classes=3)
+# --- 2. Encode Labels ---  
+encoder = LabelEncoder()
+df['label_encoded'] = encoder.fit_transform(df['Label'])
+num_classes = len(encoder.classes_)
 
-# The "Punishment" Engine: AdamW optimizer and Label Smoothing
-optimizer = tf.keras.optimizers.AdamW(learning_rate=0.001, weight_decay=1e-4)
-loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=False)
+train_df, val_df = train_test_split(df, test_size=0.2, stratify=df['label_encoded'], random_state=42)
+
+# --- 3. The Data Streaming Pipeline ---
+IMG_SIZE = (64, 64)
+BATCH_SIZE = 64 
+
+def process_image(file_path, label):
+    img = tf.io.read_file(file_path)
+    img = tf.image.decode_jpeg(img, channels=3)
+    img = tf.image.resize(img, IMG_SIZE)
+    
+    # --- 🌌 DATA AUGMENTATION (The "Pro" Trick) ---
+    img = tf.image.random_flip_left_right(img)
+    img = tf.image.random_flip_up_down(img)
+    # ----------------------------------------------
+    
+    img = img / 255.0
+    label = tf.one_hot(label, depth=num_classes)
+    return img, label
+
+def create_dataset(dataframe):
+    ds = tf.data.Dataset.from_tensor_slices((dataframe['filepath'].values, dataframe['label_encoded'].values))
+    ds = ds.map(process_image, num_parallel_calls=tf.data.AUTOTUNE)
+    ds = ds.batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
+    return ds
+
+print("🌊 Building Data Streams...")
+train_dataset = create_dataset(train_df)
+val_dataset = create_dataset(val_df)
+
+# --- 4. Build and Train the Model ---
+print("🏗️ Building SAAN Architecture...")
+model = build_saan_model(input_shape=(64, 64, 3), num_classes=num_classes)
 
 model.compile(
-    optimizer=optimizer,
-    loss=loss_fn,
+    optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
+    loss='categorical_crossentropy',
     metrics=['accuracy']
 )
 
-# --- 3. Training Callbacks ---
-# Save the absolute best version of the model automatically
-checkpoint = ModelCheckpoint(
-    '../models/saan_best_model.keras', 
-    monitor='val_accuracy', 
-    save_best_only=True, 
-    mode='max', 
-    verbose=1
+callbacks = [
+    tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True),
+    tf.keras.callbacks.ModelCheckpoint('../models/saan_best_model_60k.keras', save_best_only=True)
+]
+
+from sklearn.utils.class_weight import compute_class_weight
+
+print("⚖️ Calculating Class Weights to prevent lazy predictions...")
+class_weights = compute_class_weight(
+    class_weight='balanced',
+    classes=np.unique(train_df['label_encoded']),
+    y=train_df['label_encoded']
 )
+weight_dict = dict(enumerate(class_weights))
 
-# Stop training early if the model stops improving (prevents memorizing noise)
-early_stopping = EarlyStopping(
-    monitor='val_loss', 
-    patience=5, 
-    restore_best_weights=True
-)
-
-# --- 4. Unleash the GPU ---
-
-print("\nStarting Training Phase...")
+print(f"🔥 Starting GPU Training Pipeline...")
 history = model.fit(
-    X_train, y_train,
-    epochs=25,
-    batch_size=32,
-    validation_data=(X_val, y_val),
-    callbacks=[checkpoint, early_stopping]
+    train_dataset,
+    validation_data=val_dataset,
+    epochs=30,
+    class_weight=weight_dict,
+    callbacks=callbacks
 )
 
-print("\nTraining Complete! Best model saved to 'models/saan_best_model.keras'.")
+print("✅ TRAINING COMPLETE. Best model saved to models/saan_best_model_60k.keras")

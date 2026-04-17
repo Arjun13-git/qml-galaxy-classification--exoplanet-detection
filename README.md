@@ -1,6 +1,7 @@
 # Quantum Machine Learning for Galaxy Classification and Exoplanet Detection 🌌⚛️
 
 **Institution:** Sahyadri College of Engineering & Management, Mangaluru
+**Section:** 6A CSE
 **Team Number:** CS055
 **Team Members:** Ajith Goveas, Arjun Shenoy R, Ashish Shenoy K, Krrish Raj
 **Project Guide:** Dr. Mustafa Basthikodi (HoD, Dept. of CSE)
@@ -8,54 +9,43 @@
 ---
 
 ## 📖 Project Abstract
-This project develops a **Hybrid Quantum Machine Learning (QML) pipeline** integrating Quantum Neural Networks (QNNs) and Quantum Support Vector Machines (QSVMs) to improve sensitivity and robustness in low Signal-to-Noise Ratio (SNR) regimes. We specifically target morphological galaxy classification (Spiral, Elliptical, Irregular) where classical models plateau in performance under extreme noise.
+This project develops a **Hybrid Quantum Machine Learning (QML) pipeline** integrating classical attention-based neural networks with Variational Quantum Circuits (VQCs). By mapping deep-space morphological data into quantum Hilbert space, we aim to improve sensitivity, structural pattern recognition, and robustness in low Signal-to-Noise Ratio (SNR) regimes for galaxy classification (Elliptical, Spiral, Irregular).
 
 ---
 
-## 🚀 Phase 2 & 3: SNR-Adaptive Attention Network (SAAN)
+## 🚀 Phase 1 & 2: The Data Science Pipeline & SAAN Architecture
 
-We engineered a custom **State-of-the-Art (SOTA)** classical baseline to establish the ceiling of traditional convolutional approaches.
+We engineered a custom, State-of-the-Art (SOTA) classical baseline to establish the ceiling of traditional convolutional approaches, scaling up to handle massive, real-world astronomical datasets.
 
-### ✅ 3-Class Balanced Data Pipeline
-- **Classes:** Elliptical, Spiral, and Irregular.
-- **Augmentation:** Irregular galaxies were oversampled using random rotations and flips to reach a balanced dataset of 6,000 images.
-- **Format:** Switched to lossless `.png` with anti-aliasing to preserve structural integrity for high-noise testing.
+### ✅ Kaggle Galaxy Zoo Dataset (61,000+ Images)
+- **Pristine Thresholding:** Filtered the dataset using strict classification logic to isolate **35,814 high-confidence images** across 3 classes.
+- **Class Balancing:** Implemented robust `class_weights` during training to mathematically penalize lazy predictions and force the model to identify rare Irregular and Spiral galaxies.
+- **AI-Driven Inference (Pseudo-Labeling):** Deployed the trained model to scientifically classify a backlog of **25,764 highly ambiguous/fuzzy galaxies** in under 30 seconds, generating a massive custom-labeled dataset with assigned confidence scores.
 
-### ✅ SAAN Architecture
-- **Learnable Noise Gate:** A custom pre-processing layer that dynamically learns to suppress background static.
-- **Squeeze-and-Excitation (SE) Blocks:** Channel-wise attention mechanisms that allow the model to focus on galactic cores while muting noise-heavy feature maps.
-- **Performance:** Achieved **94.67% Validation Accuracy** on clean data.
-
-### ✅ Stress Testing & Grad-CAM Proof
-Benchmark against simulated deep-space noise (SNR Sweep):
-- **SNR 10:** 93.17% Accuracy
-- **SNR 1:** 84.33% Accuracy
-- **SNR 0.1:** **57.17% Accuracy** 📉 (The Classical Ceiling)
-- **Visual Analysis:** Grad-CAM heatmaps confirm that at SNR 0.1, the attention mechanism is blinded by pixel-level static, losing the galactic structure entirely.
+### ✅ SNR-Adaptive Attention Network (SAAN)
+- **Architecture:** - **Learnable Noise Gate:** A custom pre-processing layer that dynamically learns to suppress deep-space background static.
+  - **Squeeze-and-Excitation (SE) Blocks:** Channel-wise attention mechanisms that allow the model to focus on galactic cores while muting noise-heavy feature maps.
+- **Hardware Optimization:** Utilized `mixed_float16` precision and native TensorFlow data streams (`tf.data.AUTOTUNE`) for maximum RTX 3050 GPU efficiency.
+- **Performance:** Achieved a highly stable **81.28% Validation Accuracy**. This represents true scientific generalization without overfitting to the subjective fuzziness inherent in deep-space photography.
 
 ---
 
-## 🚀 Phase 4: Quantum Neural Network (VQC) Results
+## 🚀 Phase 3 & 4: The Hybrid Quantum Leap (PennyLane)
 
-To address the classical collapse, we implemented a **Variational Quantum Classifier (VQC)** using Qiskit.
+To push beyond classical spatial filters, we constructed a **Hybrid Quantum-Classical Neural Network**.
 
-### ✅ Quantum Pipeline
-- **Dimensionality Reduction:** 4,096 pixels reduced to 6 Principal Components (PCA) to fit a 6-qubit system.
-- **Encoding:** Utilized a `ZZFeatureMap` for quantum entanglement and a `RealAmplitudes` ansatz for trainable weights.
-- **Result:** While the QNN started with a lower baseline accuracy (~32%), it demonstrated remarkable **Noise Invariance**.
-
-### 📊 The "Quantum Advantage" Comparison
-| Model Type | Clean Accuracy | SNR 0.1 Accuracy | Performance Drop |
-| :--- | :--- | :--- | :--- |
-| **Classical (SAAN)** | 94.67% | 57.17% | **37.50% (Collapse)** |
-| **Quantum (VQC)** | 32.00% | 30.00% | **2.00% (Robust)** |
-
-**Conclusion:** The Quantum model's mapping into Hilbert Space provides a structurally robust framework that is nearly invariant to the Gaussian noise that causes classical spatial filters to fail.
+### ✅ Hybrid Architecture Design
+- **Classical Feature Extraction:** We utilize the trained SAAN model—frozen and with its classification head removed—as an ultra-powerful classical feature extractor.
+- **Dimensionality Compression:** A classical Dense layer compresses the thousands of extracted spatial features down to exactly 4 distinct latent variables.
+- **Quantum Integration (VQC):** - **Framework:** PennyLane (`qml.node`) integrated natively with Keras.
+  - **Encoding:** The 4 classical variables are mapped directly to a 4-qubit system using Angle Embedding.
+  - **Entanglement:** Basic Entangler Layers process the quantum state, testing if subatomic probability and entanglement can discover correlations invisible to classical math.
+  - **Measurement:** Pauli-Z expectation values dictate the final probability distribution across the 3 galaxy classes.
 
 ---
 
 ## 🛠️ Tech Stack
-- **Languages:** Python 
-- **AI Frameworks:** TensorFlow, Keras, Scikit-learn
-- **Quantum:** Qiskit, Qiskit-Machine-Learning, Qiskit-Aer
-- **Tools:** OpenCV, PCA, Grad-CAM
+- **Languages:** Python
+- **AI Frameworks:** TensorFlow, Keras, Scikit-learn, Pandas, NumPy
+- **Quantum Ecosystem:** PennyLane, Qiskit
+- **Hardware Acceleration:** NVIDIA CUDA, cuDNN (Mixed Precision Pipelines)

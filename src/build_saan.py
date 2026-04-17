@@ -22,24 +22,36 @@ class LearnableNoiseGate(layers.Layer):
         return inputs * mask # Mutes the deep-space static
 
 # --- 2. The Spotlight: Squeeze-and-Excitation Block ---
+# --- 2. The Spotlight: Squeeze-and-Excitation Block ---
 class SEBlock(layers.Layer):
     def __init__(self, channels, ratio=8, **kwargs):
         super(SEBlock, self).__init__(**kwargs)
+        
+        # 👇 ADD THESE TWO LINES 👇
+        self.channels = channels
+        self.ratio = ratio
+        # ------------------------
+
         self.squeeze = layers.GlobalAveragePooling2D()
-        # The 'ratio' parameter compresses the network to force it to learn only the most vital features
         self.excitation1 = layers.Dense(channels // ratio, activation='relu')
         self.excitation2 = layers.Dense(channels, activation='sigmoid')
         self.multiply = layers.Multiply()
 
+    def get_config(self):
+        config = super(SEBlock, self).get_config()
+        config.update({
+            "channels": self.channels,
+            "ratio": self.ratio,
+        })
+        return config
+    
     def call(self, inputs):
         se = self.squeeze(inputs)
         se = self.excitation1(se)
         se = self.excitation2(se)
         
-        # Reshape the 1D weights so they can be multiplied against the 2D feature maps
         se = tf.reshape(se, [-1, 1, 1, inputs.shape[-1]]) 
         return self.multiply([inputs, se])
-
 # --- 3. The Main Engine: Assembling the SAAN ---
 def build_saan_model(input_shape=(64, 64, 3), num_classes=3):
     inputs = layers.Input(shape=input_shape)

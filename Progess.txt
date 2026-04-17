@@ -1,0 +1,108 @@
+(base) C:\Users\ranja>cd C:\Projects\QML_Galaxy_Project\src
+
+(base) C:\Projects\QML_Galaxy_Project\src>conda activate galaxy_gpu
+
+(galaxy_gpu) C:\Projects\QML_Galaxy_Project\src>python train_saan.py
+🔍 Checking Hardware...
+✅ GPU Detected: PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')
+🚀 Initializing GPU and Mixed Precision...
+🔍 Verifying file paths...
+Valid images ready for training: 35814
+🌊 Building Data Streams...
+2026-04-17 15:14:07.735163: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX AVX2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-04-17 15:14:09.074751: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1616] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 1598 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 3050 A Laptop GPU, pci bus id: 0000:01:00.0, compute capability: 8.9
+🏗️ Building SAAN Architecture...
+⚖️ Calculating Class Weights to prevent lazy predictions...
+🔥 Starting GPU Training Pipeline...
+Epoch 1/30
+2026-04-17 15:14:13.560999: I tensorflow/stream_executor/cuda/cuda_dnn.cc:384] Loaded cuDNN version 8100
+2026-04-17 15:14:16.042309: E tensorflow/core/platform/windows/subprocess.cc:287] Call to CreateProcess failed. Error code: 2, command: '"ptxas.exe" "--version"'
+2026-04-17 15:14:16.044318: E tensorflow/core/platform/windows/subprocess.cc:287] Call to CreateProcess failed. Error code: 2, command: '"ptxas.exe" "--version"'
+2026-04-17 15:14:16.044413: W tensorflow/stream_executor/gpu/asm_compiler.cc:80] Couldn't get ptxas version string: INTERNAL: Couldn't invoke ptxas.exe --version
+2026-04-17 15:14:16.047661: E tensorflow/core/platform/windows/subprocess.cc:287] Call to CreateProcess failed. Error code: 2, command: '"ptxas.exe" "C:\Users\ranja\AppData\Local\Temp\/tempfile-ARJUN-DEV_LOQ-6a98-34220-64fa4cacec9a6" "-o" "C:\Users\ranja\AppData\Local\Temp\/tempfile-ARJUN-DEV_LOQ-6a98-34220-64fa4caced1a9" "-arch=sm_89" "--warn-on-spills"'
+2026-04-17 15:14:16.048279: W tensorflow/stream_executor/gpu/redzone_allocator.cc:314] INTERNAL: Failed to launch ptxas
+Relying on driver to perform ptx compilation.
+Modify $PATH to customize ptxas location.
+This message will be only logged once.
+448/448 [==============================] - 38s 62ms/step - loss: 0.9201 - accuracy: 0.6017 - val_loss: 0.7745 - val_accuracy: 0.7019
+Epoch 2/30
+448/448 [==============================] - 9s 21ms/step - loss: 0.7689 - accuracy: 0.7146 - val_loss: 0.7299 - val_accuracy: 0.7058
+Epoch 3/30
+448/448 [==============================] - 9s 21ms/step - loss: 0.7128 - accuracy: 0.7435 - val_loss: 0.5920 - val_accuracy: 0.7659
+Epoch 4/30
+448/448 [==============================] - 9s 20ms/step - loss: 0.6631 - accuracy: 0.7618 - val_loss: 0.5783 - val_accuracy: 0.7691
+Epoch 5/30
+448/448 [==============================] - 9s 20ms/step - loss: 0.6350 - accuracy: 0.7708 - val_loss: 0.5834 - val_accuracy: 0.7606
+Epoch 6/30
+448/448 [==============================] - 9s 21ms/step - loss: 0.6095 - accuracy: 0.7774 - val_loss: 0.5606 - val_accuracy: 0.7698
+Epoch 7/30
+448/448 [==============================] - 9s 21ms/step - loss: 0.5885 - accuracy: 0.7866 - val_loss: 0.4907 - val_accuracy: 0.7952
+Epoch 8/30
+448/448 [==============================] - 9s 21ms/step - loss: 0.5830 - accuracy: 0.7899 - val_loss: 0.4699 - val_accuracy: 0.8012
+Epoch 9/30
+448/448 [==============================] - 9s 21ms/step - loss: 0.5726 - accuracy: 0.7938 - val_loss: 0.4868 - val_accuracy: 0.7970
+Epoch 10/30
+448/448 [==============================] - 9s 21ms/step - loss: 0.5592 - accuracy: 0.7963 - val_loss: 0.4910 - val_accuracy: 0.8001
+Epoch 11/30
+448/448 [==============================] - 10s 22ms/step - loss: 0.5425 - accuracy: 0.8016 - val_loss: 0.4643 - val_accuracy: 0.8036
+Epoch 12/30
+448/448 [==============================] - 11s 25ms/step - loss: 0.5364 - accuracy: 0.8063 - val_loss: 0.4635 - val_accuracy: 0.8064
+Epoch 13/30
+448/448 [==============================] - 11s 24ms/step - loss: 0.5254 - accuracy: 0.8112 - val_loss: 0.4513 - val_accuracy: 0.8128
+Epoch 14/30
+448/448 [==============================] - 11s 24ms/step - loss: 0.5186 - accuracy: 0.8111 - val_loss: 0.4730 - val_accuracy: 0.7998
+Epoch 15/30
+448/448 [==============================] - 10s 23ms/step - loss: 0.5084 - accuracy: 0.8144 - val_loss: 0.4551 - val_accuracy: 0.8039
+Epoch 16/30
+448/448 [==============================] - 11s 24ms/step - loss: 0.5010 - accuracy: 0.8198 - val_loss: 0.4779 - val_accuracy: 0.8036
+Epoch 17/30
+448/448 [==============================] - 11s 24ms/step - loss: 0.4945 - accuracy: 0.8177 - val_loss: 0.4696 - val_accuracy: 0.7981
+Epoch 18/30
+448/448 [==============================] - 10s 23ms/step - loss: 0.4850 - accuracy: 0.8225 - val_loss: 0.4708 - val_accuracy: 0.8020
+✅ TRAINING COMPLETE. Best model saved to models/saan_best_model_60k.keras
+
+(galaxy_gpu) C:\Projects\QML_Galaxy_Project\src>python classify_backlog.py
+🔍 Checking Hardware...
+✅ GPU Detected: PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')
+🚀 Initializing Mixed Precision...
+📂 Loading unclassified backlog...
+Valid backlog images ready for inference: 25764
+🌊 Building Data Stream...
+2026-04-17 15:38:12.700022: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX AVX2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-04-17 15:38:13.366392: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1616] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 1598 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 3050 A Laptop GPU, pci bus id: 0000:01:00.0, compute capability: 8.9
+🧠 Awakening the SAAN Model...
+⚡ Unleashing GPU for massive parallel inference...
+2026-04-17 15:38:14.886903: I tensorflow/stream_executor/cuda/cuda_dnn.cc:384] Loaded cuDNN version 8100
+2026-04-17 15:38:15.741419: E tensorflow/core/platform/windows/subprocess.cc:287] Call to CreateProcess failed. Error code: 2, command: '"ptxas.exe" "--version"'
+2026-04-17 15:38:15.742107: E tensorflow/core/platform/windows/subprocess.cc:287] Call to CreateProcess failed. Error code: 2, command: '"ptxas.exe" "--version"'
+2026-04-17 15:38:15.742176: W tensorflow/stream_executor/gpu/asm_compiler.cc:80] Couldn't get ptxas version string: INTERNAL: Couldn't invoke ptxas.exe --version
+2026-04-17 15:38:15.750213: E tensorflow/core/platform/windows/subprocess.cc:287] Call to CreateProcess failed. Error code: 2, command: '"ptxas.exe" "C:\Users\ranja\AppData\Local\Temp\/tempfile-ARJUN-DEV_LOQ-132c-21456-64fa5209ed50e" "-o" "C:\Users\ranja\AppData\Local\Temp\/tempfile-ARJUN-DEV_LOQ-132c-21456-64fa5209ef16a" "-arch=sm_89" "--warn-on-spills"'
+2026-04-17 15:38:15.750701: W tensorflow/stream_executor/gpu/redzone_allocator.cc:314] INTERNAL: Failed to launch ptxas
+Relying on driver to perform ptx compilation.
+Modify $PATH to customize ptxas location.
+This message will be only logged once.
+403/403 [==============================] - 22s 49ms/step
+📊 Compiling results and confidence scores...
+
+==================================================
+✅ INFERENCE COMPLETE!
+💾 Results saved to ../pseudo_labeled_backlog.csv
+==================================================
+
+New Dataset Distribution:
+Predicted_Label
+Elliptical    10845
+Irregular      8309
+Spiral         6610
+Name: count, dtype: int64
+
+Average Confidence per Class:
+Predicted_Label
+Elliptical    0.836024
+Irregular     0.650185
+Spiral        0.666866
+Name: Confidence_Score, dtype: float32
+
+(galaxy_gpu) C:\Projects\QML_Galaxy_Project\src>
