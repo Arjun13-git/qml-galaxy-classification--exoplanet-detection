@@ -1,0 +1,60 @@
+📝 Live logging activated! Saving everything to ../logs_densenet_2026-04-22_14-43.txt
+🔍 Checking Hardware...
+✅ GPU Detected: PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')
+🚀 Initializing GPU and Mixed Precision...
+🔍 Verifying file paths...
+Valid images ready for training: 35814
+🌊 Building Data Streams...
+🏗️ Building SAAN Architecture with efficientnet...
+🧠 Bolting on EFFICIENTNET backbone...
+⚖️ Calculating Class Weights to prevent lazy predictions...
+🔥 Starting GPU Training Pipeline...
+Epoch 1/30
+448/448 - 95s - loss: 0.9383 - accuracy: 0.6046 - val_loss: 0.8159 - val_accuracy: 0.6651 - 95s/epoch - 211ms/step
+Epoch 2/30
+448/448 - 78s - loss: 0.8761 - accuracy: 0.6556 - val_loss: 0.7550 - val_accuracy: 0.7077 - 78s/epoch - 175ms/step
+Epoch 3/30
+448/448 - 78s - loss: 0.8440 - accuracy: 0.6765 - val_loss: 0.6826 - val_accuracy: 0.7297 - 78s/epoch - 175ms/step
+Epoch 4/30
+448/448 - 76s - loss: 0.8108 - accuracy: 0.6931 - val_loss: 0.7228 - val_accuracy: 0.7124 - 76s/epoch - 170ms/step
+Epoch 5/30
+448/448 - 96s - loss: 0.7973 - accuracy: 0.6982 - val_loss: 0.6699 - val_accuracy: 0.7370 - 96s/epoch - 214ms/step
+Epoch 6/30
+448/448 - 111s - loss: 0.7758 - accuracy: 0.7096 - val_loss: 0.6729 - val_accuracy: 0.7322 - 111s/epoch - 248ms/step
+Epoch 7/30
+448/448 - 113s - loss: 0.7687 - accuracy: 0.7144 - val_loss: 0.6488 - val_accuracy: 0.7392 - 113s/epoch - 252ms/step
+Epoch 8/30
+448/448 - 109s - loss: 0.7649 - accuracy: 0.7157 - val_loss: 0.6777 - val_accuracy: 0.7255 - 109s/epoch - 244ms/step
+Epoch 9/30
+448/448 - 74s - loss: 0.7556 - accuracy: 0.7200 - val_loss: 0.6915 - val_accuracy: 0.7191 - 74s/epoch - 166ms/step
+Epoch 10/30
+448/448 - 74s - loss: 0.7547 - accuracy: 0.7171 - val_loss: 0.6568 - val_accuracy: 0.7391 - 74s/epoch - 166ms/step
+Epoch 11/30
+448/448 - 75s - loss: 0.7525 - accuracy: 0.7210 - val_loss: 0.6443 - val_accuracy: 0.7455 - 75s/epoch - 166ms/step
+Epoch 12/30
+448/448 - 75s - loss: 0.7512 - accuracy: 0.7218 - val_loss: 0.6736 - val_accuracy: 0.7320 - 75s/epoch - 167ms/step
+Epoch 13/30
+448/448 - 75s - loss: 0.7404 - accuracy: 0.7232 - val_loss: 0.6447 - val_accuracy: 0.7449 - 75s/epoch - 168ms/step
+Epoch 14/30
+448/448 - 73s - loss: 0.7439 - accuracy: 0.7269 - val_loss: 0.6324 - val_accuracy: 0.7504 - 73s/epoch - 162ms/step
+Epoch 15/30
+448/448 - 72s - loss: 0.7392 - accuracy: 0.7264 - val_loss: 0.6363 - val_accuracy: 0.7466 - 72s/epoch - 161ms/step
+Epoch 16/30
+448/448 - 72s - loss: 0.7349 - accuracy: 0.7315 - val_loss: 0.6413 - val_accuracy: 0.7424 - 72s/epoch - 161ms/step
+Epoch 17/30
+448/448 - 72s - loss: 0.7342 - accuracy: 0.7255 - val_loss: 0.6447 - val_accuracy: 0.7482 - 72s/epoch - 161ms/step
+Epoch 18/30
+448/448 - 76s - loss: 0.7281 - accuracy: 0.7320 - val_loss: 0.6386 - val_accuracy: 0.7409 - 76s/epoch - 169ms/step
+Epoch 19/30
+448/448 - 73s - loss: 0.7269 - accuracy: 0.7321 - val_loss: 0.6224 - val_accuracy: 0.7546 - 73s/epoch - 162ms/step
+Epoch 20/30
+448/448 - 80s - loss: 0.7200 - accuracy: 0.7345 - val_loss: 0.6693 - val_accuracy: 0.7359 - 80s/epoch - 178ms/step
+Epoch 21/30
+448/448 - 73s - loss: 0.7178 - accuracy: 0.7371 - val_loss: 0.6690 - val_accuracy: 0.7396 - 73s/epoch - 164ms/step
+Epoch 22/30
+448/448 - 72s - loss: 0.7220 - accuracy: 0.7346 - val_loss: 0.6636 - val_accuracy: 0.7275 - 72s/epoch - 161ms/step
+Epoch 23/30
+448/448 - 72s - loss: 0.7133 - accuracy: 0.7401 - val_loss: 0.6486 - val_accuracy: 0.7409 - 72s/epoch - 162ms/step
+Epoch 24/30
+448/448 - 72s - loss: 0.7158 - accuracy: 0.7342 - val_loss: 0.6431 - val_accuracy: 0.7409 - 72s/epoch - 161ms/step
+✅ TRAINING COMPLETE. Best model saved to models/saan_best_model_60k.keras

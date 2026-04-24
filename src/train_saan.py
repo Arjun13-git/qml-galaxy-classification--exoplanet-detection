@@ -1,10 +1,34 @@
 import os
+import sys
+import datetime
 import pandas as pd
 import numpy as np
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-from build_saan import build_saan_model
+#from build_saan import build_saan_model
+from build_saan import build_sota_saan
+
+
+class Logger(object):
+    def __init__(self, filename):
+        self.terminal = sys.stdout
+        # utf-8 is required so Windows doesn't crash when saving the emojis!
+        self.log = open(filename, "a", encoding="utf-8")
+
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)  
+
+    def flush(self):
+        self.terminal.flush()
+        self.log.flush()
+
+timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
+log_filename = f"../logs_densenet_{timestamp}.txt"
+sys.stdout = Logger(log_filename)
+print(f"📝 Live logging activated! Saving everything to {log_filename}")
+# 👆 ------------------------------------ 👆
 
 print("🔍 Checking Hardware...")
 # --- THE GPU KILL SWITCH ---
@@ -55,7 +79,7 @@ def process_image(file_path, label):
     img = tf.image.random_flip_up_down(img)
     # ----------------------------------------------
     
-    img = img / 255.0
+    #img = img / 255.0
     label = tf.one_hot(label, depth=num_classes)
     return img, label
 
@@ -70,8 +94,10 @@ train_dataset = create_dataset(train_df)
 val_dataset = create_dataset(val_df)
 
 # --- 4. Build and Train the Model ---
-print("🏗️ Building SAAN Architecture...")
-model = build_saan_model(input_shape=(64, 64, 3), num_classes=num_classes)
+TARGET_MODEL = 'efficientnet' # CHANGE THIS TO 'densenet' OR 'convnext' LATER
+
+print(f"🏗️ Building SAAN Architecture with {TARGET_MODEL}...")
+model = build_sota_saan(backbone_name=TARGET_MODEL, input_shape=(64, 64, 3), num_classes=num_classes)
 
 model.compile(
     optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
@@ -81,7 +107,7 @@ model.compile(
 
 callbacks = [
     tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True),
-    tf.keras.callbacks.ModelCheckpoint('../models/saan_best_model_60k.keras', save_best_only=True)
+    tf.keras.callbacks.ModelCheckpoint(f'../models/saan_{TARGET_MODEL}_best.keras', save_best_only=True)
 ]
 
 from sklearn.utils.class_weight import compute_class_weight
@@ -100,7 +126,8 @@ history = model.fit(
     validation_data=val_dataset,
     epochs=30,
     class_weight=weight_dict,
-    callbacks=callbacks
+    callbacks=callbacks,
+    verbose=2 # <--- ADD THIS LINE!
 )
 
 print("✅ TRAINING COMPLETE. Best model saved to models/saan_best_model_60k.keras")

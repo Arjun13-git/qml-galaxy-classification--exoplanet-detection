@@ -1,0 +1,26 @@
+📝 Live logging activated! Saving everything to ../logs_densenet_2026-04-18_10-49.txt
+🔍 Checking Hardware...
+✅ GPU Detected: PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')
+🚀 Initializing GPU and Mixed Precision...
+🔍 Verifying file paths...
+Valid images ready for training: 35814
+🌊 Building Data Streams...
+🏗️ Building SAAN Architecture with efficientnet...
+🧠 Bolting on EFFICIENTNET backbone...
+⚖️ Calculating Class Weights to prevent lazy predictions...
+🔥 Starting GPU Training Pipeline...
+Epoch 1/30
+448/448 - 87s - loss: 1.1011 - accuracy: 0.2263 - val_loss: 1.0976 - val_accuracy: 0.5567 - 87s/epoch - 193ms/step
+Epoch 2/30
+448/448 - 79s - loss: 1.0990 - accuracy: 0.2740 - val_loss: 1.0973 - val_accuracy: 0.5567 - 79s/epoch - 177ms/step
+Epoch 3/30
+448/448 - 79s - loss: 1.0990 - accuracy: 0.3072 - val_loss: 1.0973 - val_accuracy: 0.5567 - 79s/epoch - 176ms/step
+Epoch 4/30
+448/448 - 81s - loss: 1.0995 - accuracy: 0.3423 - val_loss: 1.0973 - val_accuracy: 0.5567 - 81s/epoch - 182ms/step
+Epoch 5/30
+448/448 - 74s - loss: 1.0990 - accuracy: 0.3090 - val_loss: 1.0973 - val_accuracy: 0.5567 - 74s/epoch - 165ms/step
+Epoch 6/30
+448/448 - 74s - loss: 1.0990 - accuracy: 0.3044 - val_loss: 1.0973 - val_accuracy: 0.5567 - 74s/epoch - 165ms/step
+Epoch 7/30
+448/448 - 74s - loss: 1.0990 - accuracy: 0.3068 - val_loss: 1.0973 - val_accuracy: 0.5567 - 74s/epoch - 165ms/step
+✅ TRAINING COMPLETE. Best model saved to models/saan_best_model_60k.keras
