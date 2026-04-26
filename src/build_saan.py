@@ -20,6 +20,7 @@ class LearnableNoiseGate(layers.Layer):
 
     def call(self, inputs):
         mask = self.noise_evaluator(inputs)
+        mask = tf.cast(mask, inputs.dtype)
         return inputs * mask # Mutes the deep-space static
 
 # --- 2. The Spotlight: Squeeze-and-Excitation Block ---
