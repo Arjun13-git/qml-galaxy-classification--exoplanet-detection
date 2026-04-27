@@ -115,7 +115,7 @@ def overlay_heatmap(img, heatmap, alpha=0.4):
 
 # --- 5. The Visual Test Flight ---
 # Make sure this points to the exact same image you used for the classical test!
-SAMPLE_IMAGE_PATH = r"C:\galaxy_datasets\images_training_rev1\100008.jpg" 
+SAMPLE_IMAGE_PATH = r"C:\galaxy_datasets\images_training_rev1\102243.jpg" 
 
 print("🎨 Generating Quantum Heatmaps...")
 raw_img = tf.io.read_file(SAMPLE_IMAGE_PATH)

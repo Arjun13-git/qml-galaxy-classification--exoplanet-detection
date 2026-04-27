@@ -1,0 +1,21 @@
+📝 Live logging activated! Saving everything to ../logs_hybrid_qml_2026.txt
+🌌 Initializing Quantum-Classical Hardware...
+✅ Classical GPU Detected: PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')
+⚛️ Forging the 4-Qubit Quantum Circuit...
+🧠 Splicing DenseNet121 into Quantum Processor...
+🚀 INITIATING QUANTUM TRAINING (Expect longer epoch times!)...
+Epoch 1/10
+448/448 - 955s - loss: 1.0610 - accuracy: 0.4338 - val_loss: 1.0245 - val_accuracy: 0.5569 - 955s/epoch - 2s/step
+Epoch 2/10
+448/448 - 934s - loss: 1.0049 - accuracy: 0.5570 - val_loss: 0.9919 - val_accuracy: 0.5567 - 934s/epoch - 2s/step
+Epoch 3/10
+448/448 - 905s - loss: 0.9851 - accuracy: 0.5568 - val_loss: 0.9798 - val_accuracy: 0.5567 - 905s/epoch - 2s/step
+Epoch 4/10
+448/448 - 899s - loss: 0.9765 - accuracy: 0.5568 - val_loss: 0.9741 - val_accuracy: 0.5567 - 899s/epoch - 2s/step
+Epoch 5/10
+448/448 - 900s - loss: 0.9790 - accuracy: 0.5568 - val_loss: 1.0201 - val_accuracy: 0.5567 - 900s/epoch - 2s/step
+Epoch 6/10
+448/448 - 904s - loss: 0.9873 - accuracy: 0.5568 - val_loss: 0.9768 - val_accuracy: 0.5567 - 904s/epoch - 2s/step
+Epoch 7/10
+448/448 - 898s - loss: 0.9752 - accuracy: 0.5568 - val_loss: 0.9743 - val_accuracy: 0.5567 - 898s/epoch - 2s/step
+✅ QUANTUM HYBRID MODEL SECURED.

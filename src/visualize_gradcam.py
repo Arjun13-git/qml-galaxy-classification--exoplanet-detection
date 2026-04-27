@@ -73,7 +73,7 @@ def overlay_heatmap(img, heatmap, alpha=0.4):
 
 # --- 4. The Visual Test Flight ---
 # Pick a random clean image from your dataset directory
-SAMPLE_IMAGE_PATH = r"C:\galaxy_datasets\images_training_rev1\100023.jpg" # Change this number to any valid image file!
+SAMPLE_IMAGE_PATH = r"C:\galaxy_datasets\images_training_rev1\102243.jpg" # Change this number to any valid image file!
 
 print("🎨 Generating Heatmaps...")
 raw_img = tf.io.read_file(SAMPLE_IMAGE_PATH)
