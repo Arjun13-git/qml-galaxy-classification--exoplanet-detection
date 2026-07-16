@@ -1,4 +1,4 @@
-# Quantum Machine Learning for Galaxy Classification and Exoplanet Detection 🌌⚛️
+# Quantum Machine Learning for Galaxy Classification 🌌⚛️
 
 **Institution:** Sahyadri College of Engineering & Management, Mangaluru
 **Section:** 6A CSE
